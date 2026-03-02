@@ -14,10 +14,9 @@ int main() {
         switch (options) 
         {
             case 1:
-                criar_conta(NULL);
                 break;
             case 2:
-                // Criar conta
+                criar_conta(NULL);
                 break;
             case 3:
                 printf("Saindo...\n");

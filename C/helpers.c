@@ -1,6 +1,7 @@
 #include "helpers.h"
 
 void criar_conta(sqlite3 *db) {
+    int rc = sqlite3_open("banco.db", &db);
     char usuario[50];
     char senha[50]; 
     printf("Usuario: ");
