@@ -14,6 +14,7 @@ int main() {
         switch (options) 
         {
             case 1:
+                acessar_conta(NULL);
                 break;
             case 2:
                 criar_conta(NULL);
