@@ -1,7 +1,7 @@
 #include "helpers.h"
 void acessar_conta(sqlite3 *db)
 {
-    int rc = sqlite3_open("banco.db", &db);
+    int rc = sqlite3_open("..\\database\\banco.db", &db);
     printf("Usuario: ");
     scanf("%s", usuario);
     printf("Senha: ");
