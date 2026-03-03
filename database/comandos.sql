@@ -1,6 +1,3 @@
-SELECT * from usuarios;
-
-drop TABLE usuarios;
 
 CREATE TABLE contas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
