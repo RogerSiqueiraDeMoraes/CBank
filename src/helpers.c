@@ -21,7 +21,7 @@ void acessar_conta(sqlite3 *db)
     scanf("%49s", senha);
 
     sqlite3_stmt *stmt;
-    const char *sql = "SELECT * FROM usuarios WHERE CPF = ? AND senha = ?;";
+    const char *sql = "SELECT * FROM contas WHERE CPF = ? AND senha = ?;";
 
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
     if (rc != SQLITE_OK) {
@@ -63,7 +63,7 @@ void criar_conta(sqlite3 *db) {
     scanf("%49s", senha);
 
     sqlite3_stmt *stmt;
-    const char *sql = "INSERT INTO usuarios (CPF, senha) VALUES (?, ?);";
+    const char *sql = "INSERT INTO contas (CPF, senha) VALUES (?, ?);";
 
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
     if (rc != SQLITE_OK) {
