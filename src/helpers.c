@@ -23,7 +23,7 @@ void acessar_conta(sqlite3 *db)
     sqlite3_finalize(stmt);
 }
 void criar_conta(sqlite3 *db) {
-    int rc = sqlite3_open("banco.db", &db);
+    int rc = sqlite3_open("..\\database\\banco.db", &db);
     printf("CPF: ");
     scanf("%s", CPF);
     printf("Senha: ");
@@ -37,11 +37,10 @@ void criar_conta(sqlite3 *db) {
     sqlite3_bind_text(stmt, 2, senha, -1, SQLITE_TRANSIENT);
 
     if(sqlite3_step(stmt) != SQLITE_DONE) {
-        printf("Erro ao criar conta!\n");
+        printf("Erro ao criar conta.\n");
     } else {
-        printf("Conta criada com sucesso!\n");
+        printf("Conta criada com sucesso.\n");
     }
 
     sqlite3_finalize(stmt);
 }
-void listar_contas(sqlite3 *db);
