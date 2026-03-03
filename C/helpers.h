@@ -2,7 +2,7 @@
 #define HELPERS_H
 #include "sqlite3.h"
 
-char usuario[50];
+char CPF[50];
 char senha[50];
 
 void acessar_conta(sqlite3 *db);
