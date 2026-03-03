@@ -1,11 +1,10 @@
 #include "helpers.h"
 #include <stdio.h>
 #include <string.h>
-#include <sqlite3.h>
+#include "sqlite3.h"
 
 void acessar_conta(sqlite3 *db)
 {
-    // Se db for NULL, abre a conexão
     int precisa_fechar = 0;
     if (db == NULL) {
         int rc = sqlite3_open("..\\database\\banco.db", &db);
@@ -42,14 +41,12 @@ void acessar_conta(sqlite3 *db)
 
     sqlite3_finalize(stmt);
     
-    // Fecha a conexão se foi aberta aqui
     if (precisa_fechar) {
         sqlite3_close(db);
     }
 }
 
 void criar_conta(sqlite3 *db) {
-    // Se db for NULL, abre a conexão
     int precisa_fechar = 0;
     if (db == NULL) {
         int rc = sqlite3_open("..\\database\\banco.db", &db);
@@ -86,8 +83,7 @@ void criar_conta(sqlite3 *db) {
     }
 
     sqlite3_finalize(stmt);
-    
-    // Fecha a conexão se foi aberta aqui
+
     if (precisa_fechar) {
         sqlite3_close(db);
     }
