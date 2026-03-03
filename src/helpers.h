@@ -5,6 +5,8 @@
 char CPF[50];
 char senha[50];
 
+
+int garantir_conexao(sqlite3 **db);
 void acessar_conta(sqlite3 *db);
 void criar_conta(sqlite3 *db);
 

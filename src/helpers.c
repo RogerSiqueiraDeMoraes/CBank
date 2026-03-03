@@ -1,32 +1,40 @@
 #include "helpers.h"
 #include <stdio.h>
 #include <string.h>
-#include "sqlite3.h"
+
+int garantir_conexao(sqlite3 **db) {
+    if (*db != NULL) {
+        return 0; 
+    }
+    
+    int rc = sqlite3_open("..\\database\\banco.db", db);
+    if (rc != SQLITE_OK) {
+        printf("Erro ao abrir banco de dados: %s\n", sqlite3_errmsg(*db));
+        return -1; 
+    }
+    
+    return 1; 
+}
 
 void acessar_conta(sqlite3 *db)
 {
-    int precisa_fechar = 0;
-    if (db == NULL) {
-        int rc = sqlite3_open("..\\database\\banco.db", &db);
-        if (rc != SQLITE_OK) {
-            printf("Erro ao abrir banco de dados: %s\n", sqlite3_errmsg(db));
-            return;
-        }
-        precisa_fechar = 1;
+    int status = garantir_conexao(&db);
+    if (status == -1) {
+        return;
     }
-
+    
     printf("CPF: ");
     scanf("%49s", CPF);
     printf("Senha: ");
     scanf("%49s", senha);
 
     sqlite3_stmt *stmt;
-    const char *sql = "SELECT * FROM contas WHERE CPF = ? AND senha = ?;";
+    const char *sql = "SELECT * FROM usuarios WHERE CPF = ? AND senha = ?;";
 
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
     if (rc != SQLITE_OK) {
         printf("Erro ao preparar consulta: %s\n", sqlite3_errmsg(db));
-        if (precisa_fechar) sqlite3_close(db);
+        if (status == 1) sqlite3_close(db);
         return;
     }
 
@@ -41,20 +49,15 @@ void acessar_conta(sqlite3 *db)
 
     sqlite3_finalize(stmt);
     
-    if (precisa_fechar) {
+    if (status == 1) {
         sqlite3_close(db);
     }
 }
 
 void criar_conta(sqlite3 *db) {
-    int precisa_fechar = 0;
-    if (db == NULL) {
-        int rc = sqlite3_open("..\\database\\banco.db", &db);
-        if (rc != SQLITE_OK) {
-            printf("Erro ao abrir banco de dados: %s\n", sqlite3_errmsg(db));
-            return;
-        }
-        precisa_fechar = 1;
+    int status = garantir_conexao(&db);
+    if (status == -1) {
+        return;
     }
 
     printf("CPF: ");
@@ -63,12 +66,12 @@ void criar_conta(sqlite3 *db) {
     scanf("%49s", senha);
 
     sqlite3_stmt *stmt;
-    const char *sql = "INSERT INTO contas (CPF, senha) VALUES (?, ?);";
+    const char *sql = "INSERT INTO usuarios (CPF, senha) VALUES (?, ?);";
 
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
     if (rc != SQLITE_OK) {
         printf("Erro ao preparar inserção: %s\n", sqlite3_errmsg(db));
-        if (precisa_fechar) sqlite3_close(db);
+        if (status == 1) sqlite3_close(db);
         return;
     }
 
@@ -83,8 +86,8 @@ void criar_conta(sqlite3 *db) {
     }
 
     sqlite3_finalize(stmt);
-
-    if (precisa_fechar) {
+    
+    if (status == 1) {
         sqlite3_close(db);
     }
 }
