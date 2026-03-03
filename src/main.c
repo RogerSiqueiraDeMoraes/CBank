@@ -26,5 +26,4 @@ int main() {
                 printf("Opção inválida. Tente novamente.\n");
         }
     }
-    
 }
